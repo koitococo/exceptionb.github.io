@@ -1,0 +1,223 @@
+
+<!DOCTYPE html>
+<html lang="zh-cn" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>How to 自建一个ddns服务 - Fishing-Touch Journal</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content=","> 
+    <meta name="description" content="How to 自建一个ddns服务起因总所周知（？），我有个.tk的域名，也有一个云服务器，西电的校园网会给每个登录的设备分配一个ip，并且你几乎可以从任何地方通过校园wifi来访问这个ip。所以，,"> 
+    <meta name="author" content="Koito Coco"> 
+    <link rel="alternative" href="atom.xml" title="Fishing-Touch Journal" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.jpg"> 
+    
+    
+    
+    <meta name="twitter:card" content="summary"/>
+    <meta name="twitter:title" content="How to 自建一个ddns服务 - Fishing-Touch Journal"/>
+    <meta name="twitter:description" content="How to 自建一个ddns服务起因总所周知（？），我有个.tk的域名，也有一个云服务器，西电的校园网会给每个登录的设备分配一个ip，并且你几乎可以从任何地方通过校园wifi来访问这个ip。所以，,"/>
+    
+    
+    
+    
+    <meta property="og:site_name" content="Fishing-Touch Journal"/>
+    <meta property="og:type" content="object"/>
+    <meta property="og:title" content="How to 自建一个ddns服务 - Fishing-Touch Journal"/>
+    <meta property="og:description" content="How to 自建一个ddns服务起因总所周知（？），我有个.tk的域名，也有一个云服务器，西电的校园网会给每个登录的设备分配一个ip，并且你几乎可以从任何地方通过校园wifi来访问这个ip。所以，,"/>
+    
+<link rel="stylesheet" href="/css/diaspora.css">
+
+    <script>window.searchDbPath = "/search.xml";</script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap" rel="stylesheet">
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body class="loading">
+    <span id="config-title" style="display:none">Fishing-Touch Journal</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="https://blog.ltkk.ml"></a>
+    <div title="播放/暂停" class="iconfont icon-play"></div>
+    <h3 class="subtitle">How to 自建一个ddns服务</h3>
+    <div class="social">
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="iconfont icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+
+    <div class="section">
+        <div class="article">
+    <div class='main'>
+        <h1 class="title">How to 自建一个ddns服务</h1>
+        <div class="stuff">
+            <span>三月 11, 2023</span>
+            
+
+        </div>
+        <div class="content markdown">
+            <h1 id="How-to-自建一个ddns服务"><a href="#How-to-自建一个ddns服务" class="headerlink" title="How to 自建一个ddns服务"></a>How to 自建一个ddns服务</h1><h2 id="起因"><a href="#起因" class="headerlink" title="起因"></a>起因</h2><p>总所周知（？），我有个.tk的域名，也有一个云服务器，西电的校园网会给每个登录的设备分配一个ip，并且你几乎可以从任何地方通过校园wifi来访问这个ip。<br>所以，我就产生了建立一个校内ddns的想法。</p>
+<p>最开始是打算直接用cloudflare的api来处理解析的，结果在写完demo之后发现<strong>Cloudflare不允许.tk域名通过api修改dns记录</strong>，寄了。</p>
+<p>那就只能研究一下整个域名的解析流程，假如我要访问一个<code>name.domain.tk</code>的域名，在本地dns缓存未命中之后，dns客户端将按照如下步骤解析域名：</p>
+<ol>
+<li>访问根域名服务器，获取<code>.tk</code>根服务器的地址</li>
+<li>访问<code>.tk</code>根服务器，获取<code>.domain.tk</code>的dns服务器地址</li>
+<li>访问<code>.domain.tk</code>的dns服务器，获取<code>name.domain.tk</code>的记录</li>
+</ol>
+<p>假如我要访问<code>name.ddns.domain.tk</code>的话，可以以此类推。</p>
+<p>也就是说，可以通过往dns zone里面加入ns record，来指定解析次级域名的dns服务器。</p>
+<h2 id="修改dns解析"><a href="#修改dns解析" class="headerlink" title="修改dns解析"></a>修改dns解析</h2><p><del>首先把<code>domain.tk</code>绑定到cloudflare下面，具体方法可以百度（</del></p>
+<p>然后我添加了一条A记录，指向云服务器的ip（ip脱敏处理，所以是内网ip，实际上得用一个公网ip（至少你的所有用户得可以直接访问））</p>
+<p>再添加一条NS记录，指向刚才添加的A记录，添加完之后的dns记录大致如下</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">domain.tk.	86400	IN	NS	dorthy.ns.cloudflare.com.</span><br><span class="line">domain.tk.	86400	IN	NS	peyton.ns.cloudflare.com</span><br><span class="line"></span><br><span class="line">ns.domain.tk.	1	IN	A	10.0.0.2</span><br><span class="line"></span><br><span class="line">ddns.domain.tk. 1   IN  NS  ns.domain.tk.</span><br></pre></td></tr></table></figure>
+
+<h2 id="部署Technitium-DNS-Server"><a href="#部署Technitium-DNS-Server" class="headerlink" title="部署Technitium DNS Server"></a>部署Technitium DNS Server</h2><p>Technitium DNS Server是一个用Asp.Net Core写的开源DNS服务器，开箱即用，极其方便</p>
+<p>首先去Microsoft的网站上下载一个适用于linux的asp.net core runtime，然后解压（</p>
+<p>再去Technitium DNS Server的GitHub Release里面下载最新的release，然后解压（</p>
+<p>然后直接<code>./dotnet DnsServerApp.dll</code>，访问<code>http://ip:5380</code>，一个dns服务器就搭建完了，是不是非常的简单（</p>
+<p>别急，还得配置一下</p>
+<p>在Technitium DNS Server的控制面板里面添加一个<code>ddns.domain.tk</code>的zone，然后再添加一个api token，保留备用。</p>
+<h2 id="写一个ddns服务器"><a href="#写一个ddns服务器" class="headerlink" title="写一个ddns服务器"></a>写一个ddns服务器</h2><p>直接用Technitium DNS Server的api给用户可不是个好主意，这个api的权限太大了，可能会影响到其他用户的使用。</p>
+<p>所以用python写了个简单的ddns服务，基于Technitium DNS Server的api。</p>
+<h3 id="第一个demo"><a href="#第一个demo" class="headerlink" title="第一个demo"></a>第一个demo</h3><p>To be continued（demo肯定是写完了，但是blog摸了</p>
+<h3 id="访问限制"><a href="#访问限制" class="headerlink" title="访问限制"></a>访问限制</h3><p>肯定不能让所有人都可以访问这个api，所以得采取点手段来验证用户身份。</p>
+<p>由于我懒得申请ssl证书（因为没备案，开80端口检验麻烦，也懒得手动验证），所以https没得用，因此肯定不能在请求里明着写account和password。</p>
+<p>于是我写了一个简单的基于时间的身份验证方法</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">getsign</span>(<span class="params">token: <span class="built_in">str</span>, content: <span class="built_in">str</span></span>):</span><br><span class="line">    <span class="keyword">return</span> hashlib.sha1((hashlib.sha1(token.encode()).hexdigest() \</span><br><span class="line">        + hashlib.sha1(content.encode()).hexdigest() \</span><br><span class="line">        ).encode()).hexdigest()</span><br></pre></td></tr></table></figure>
+
+<p>总所周知，hash算法虽然现在已经有快速爆破的手段了，但成本仍然较高（实际部署是可以改用sha256等算法和采取更长的content来增加爆破难度），可以通过在请求头里加入sign所使用的时间，以及对应token的account来进行校验token</p>
+<p>这里使用了多次hash，主要是为了防止通过特殊的token和content的拼接导致的相同hash问题（参考moectf2022的“支付系统”题目）</p>
+<h3 id="多用户权限控制"><a href="#多用户权限控制" class="headerlink" title="多用户权限控制"></a>多用户权限控制</h3><p>To be continued（之后再说</p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                </ul>
+            
+        </div>
+        
+        
+    <div id="gitalk-container" class="comment link"
+		data-enable="false"
+        data-ae="false"
+        data-ci=""
+        data-cs=""
+        data-r=""
+        data-o=""
+        data-a=""
+        data-d="false"
+    >查看评论</div>
+
+
+    </div>
+    
+</div>
+
+
+    </div>
+</div>
+</body>
+
+
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/typed.js"></script>
+<script src="/js/diaspora.js"></script>
+
+
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+
+
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({"HTML-CSS": { preferredFont: "TeX", availableFonts: ["STIX","TeX"], linebreaks: { automatic:true }, EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50) },
+        tex2jax: { inlineMath: [ ["$", "$"], ["\\(","\\)"] ], processEscapes: true, ignoreClass: "tex2jax_ignore|dno",skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']},
+        TeX: {  noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } }, Macros: { href: "{}" } },
+        messageStyle: "none"
+    });
+</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script async type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+
+</html>

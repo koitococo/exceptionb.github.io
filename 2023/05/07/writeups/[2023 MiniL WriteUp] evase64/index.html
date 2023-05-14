@@ -1,0 +1,205 @@
+
+<!DOCTYPE html>
+<html lang="zh-cn" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>[2023 MiniL WriteUp] evase64 - Fishing-Touch Journal</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content=","> 
+    <meta name="description" content="WriteUp - 先看题，题目很短
+12345678910111213141516import astimport base64input_data = input(&amp;quot;&amp;gt;&amp;gt;&amp;,"> 
+    <meta name="author" content="Koito Coco"> 
+    <link rel="alternative" href="atom.xml" title="Fishing-Touch Journal" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.jpg"> 
+    
+    
+    
+    <meta name="twitter:card" content="summary"/>
+    <meta name="twitter:title" content="[2023 MiniL WriteUp] evase64 - Fishing-Touch Journal"/>
+    <meta name="twitter:description" content="WriteUp - 先看题，题目很短
+12345678910111213141516import astimport base64input_data = input(&amp;quot;&amp;gt;&amp;gt;&amp;,"/>
+    
+    
+    
+    
+    <meta property="og:site_name" content="Fishing-Touch Journal"/>
+    <meta property="og:type" content="object"/>
+    <meta property="og:title" content="[2023 MiniL WriteUp] evase64 - Fishing-Touch Journal"/>
+    <meta property="og:description" content="WriteUp - 先看题，题目很短
+12345678910111213141516import astimport base64input_data = input(&amp;quot;&amp;gt;&amp;gt;&amp;,"/>
+    
+<link rel="stylesheet" href="/css/diaspora.css">
+
+    <script>window.searchDbPath = "/search.xml";</script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap" rel="stylesheet">
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body class="loading">
+    <span id="config-title" style="display:none">Fishing-Touch Journal</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="https://blog.ltkk.ml"></a>
+    <div title="播放/暂停" class="iconfont icon-play"></div>
+    <h3 class="subtitle">[2023 MiniL WriteUp] evase64</h3>
+    <div class="social">
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="iconfont icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+
+    <div class="section">
+        <div class="article">
+    <div class='main'>
+        <h1 class="title">[2023 MiniL WriteUp] evase64</h1>
+        <div class="stuff">
+            <span>五月 07, 2023</span>
+            
+
+        </div>
+        <div class="content markdown">
+            <h1 id="WriteUp"><a href="#WriteUp" class="headerlink" title="WriteUp - "></a>WriteUp - <!--名字忘了，之后再补--></h1><p>先看题，题目很短</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> ast</span><br><span class="line"><span class="keyword">import</span> base64</span><br><span class="line"></span><br><span class="line">input_data = <span class="built_in">input</span>(<span class="string">&quot;&gt;&gt;&gt; &quot;</span>)</span><br><span class="line"></span><br><span class="line">parser_tree = ast.parse(input_data, mode = <span class="string">&#x27;eval&#x27;</span>)</span><br><span class="line"><span class="keyword">assert</span> <span class="keyword">not</span> <span class="built_in">any</span>(<span class="built_in">isinstance</span>(node, ast.Call) <span class="keyword">for</span> node <span class="keyword">in</span> ast.walk(parser_tree))</span><br><span class="line"><span class="keyword">del</span> ast</span><br><span class="line"></span><br><span class="line">eval_result = <span class="built_in">eval</span>(<span class="built_in">compile</span>(parser_tree, filename = <span class="string">&#x27;&#x27;</span>, mode = <span class="string">&#x27;eval&#x27;</span>))</span><br><span class="line">decode_base64 = <span class="built_in">int</span>.from_bytes(base64.b64decode(input_data), byteorder = <span class="string">&#x27;little&#x27;</span>)</span><br><span class="line"><span class="keyword">del</span> base64</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> eval_result == decode_base64:</span><br><span class="line">	flag = <span class="built_in">open</span>(<span class="string">&quot;flag&quot;</span>).read().strip()</span><br><span class="line">	<span class="built_in">print</span>(flag)</span><br></pre></td></tr></table></figure>
+
+<p>主要做的两件事情就是，先用ast验证是否存在函数调用，如果存在，则直接assert报错<br>然后分别用eval和base64解码得到两个值，进行比较，如果为<code>True</code>则返回flag</p>
+<p>ast的函数调用限制基本上是绕不开了，而且这里用的是eval模式，也不能用<code>=</code>运算，所以入手点只能是base64的一些特性</p>
+<p>看base64库的<code>b64decode</code>默认参数，输入的是string或者bytes 然后有一个验证选项</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">b64decode</span>(<span class="params">s, altchars=<span class="literal">None</span>, validate=<span class="literal">False</span></span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;Decode the Base64 encoded bytes-like object or ASCII string s.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    Optional altchars must be a bytes-like object or ASCII string of length 2</span></span><br><span class="line"><span class="string">    which specifies the alternative alphabet used instead of the &#x27;+&#x27; and &#x27;/&#x27;</span></span><br><span class="line"><span class="string">    characters.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    The result is returned as a bytes object.  A binascii.Error is raised if</span></span><br><span class="line"><span class="string">    s is incorrectly padded.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    If validate is False (the default), characters that are neither in the</span></span><br><span class="line"><span class="string">    normal base-64 alphabet nor the alternative alphabet are discarded prior</span></span><br><span class="line"><span class="string">    to the padding check.  If validate is True, these non-alphabet characters</span></span><br><span class="line"><span class="string">    in the input result in a binascii.Error.</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    s = _bytes_from_decode_data(s)</span><br><span class="line">    <span class="keyword">if</span> altchars <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">        altchars = _bytes_from_decode_data(altchars)</span><br><span class="line">        <span class="keyword">assert</span> <span class="built_in">len</span>(altchars) == <span class="number">2</span>, <span class="built_in">repr</span>(altchars)</span><br><span class="line">        s = s.translate(<span class="built_in">bytes</span>.maketrans(altchars, <span class="string">b&#x27;+/&#x27;</span>))</span><br><span class="line">    <span class="keyword">if</span> validate <span class="keyword">and</span> <span class="keyword">not</span> re.fullmatch(<span class="string">b&#x27;[A-Za-z0-9+/]*=&#123;0,2&#125;&#x27;</span>, s):</span><br><span class="line">        <span class="keyword">raise</span> binascii.Error(<span class="string">&#x27;Non-base64 digit found&#x27;</span>)</span><br><span class="line">    <span class="keyword">return</span> binascii.a2b_base64(s)</span><br></pre></td></tr></table></figure>
+
+<p>这个验证会要求输入在<code>[A-z0-9+/]</code>之间，但是默认是关闭的 也就是忽略无效的字节，所以如果我的payload里面没有在<code>[A-z0-9+/]</code>之间的字符，那最终base64解出来是0，所以eval用这之外的字符构造一个返回值为<code>val</code>的表达式，能使得<code>val == 0</code>为<code>True</code>就可以了</p>
+<p>在python里面还有一个小trick，就是<code>False == 0</code>，所以有了一个最短的payload（之一，目前已发现的）<code>[]!=[]</code></p>
+<p>done</p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                </ul>
+            
+        </div>
+        
+        
+    <div id="gitalk-container" class="comment link"
+		data-enable="false"
+        data-ae="false"
+        data-ci=""
+        data-cs=""
+        data-r=""
+        data-o=""
+        data-a=""
+        data-d="false"
+    >查看评论</div>
+
+
+    </div>
+    
+</div>
+
+
+    </div>
+</div>
+</body>
+
+
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/typed.js"></script>
+<script src="/js/diaspora.js"></script>
+
+
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+
+
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({"HTML-CSS": { preferredFont: "TeX", availableFonts: ["STIX","TeX"], linebreaks: { automatic:true }, EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50) },
+        tex2jax: { inlineMath: [ ["$", "$"], ["\\(","\\)"] ], processEscapes: true, ignoreClass: "tex2jax_ignore|dno",skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']},
+        TeX: {  noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } }, Macros: { href: "{}" } },
+        messageStyle: "none"
+    });
+</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script async type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+
+</html>

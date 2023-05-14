@@ -1,0 +1,214 @@
+
+<!DOCTYPE html>
+<html lang="zh-cn" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>[2023 MiniL WriteUp] giveaway - Fishing-Touch Journal</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content=","> 
+    <meta name="description" content="Crypto WriteUp - giveaway坏了，给我这非预期一搞，真白给了感谢polar老师的指导，我是真的不会sagemath呜呜呜，我菜死了喵
+首先有个proof_of_work，有手就,"> 
+    <meta name="author" content="Koito Coco"> 
+    <link rel="alternative" href="atom.xml" title="Fishing-Touch Journal" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.jpg"> 
+    
+    
+    
+    <meta name="twitter:card" content="summary"/>
+    <meta name="twitter:title" content="[2023 MiniL WriteUp] giveaway - Fishing-Touch Journal"/>
+    <meta name="twitter:description" content="Crypto WriteUp - giveaway坏了，给我这非预期一搞，真白给了感谢polar老师的指导，我是真的不会sagemath呜呜呜，我菜死了喵
+首先有个proof_of_work，有手就,"/>
+    
+    
+    
+    
+    <meta property="og:site_name" content="Fishing-Touch Journal"/>
+    <meta property="og:type" content="object"/>
+    <meta property="og:title" content="[2023 MiniL WriteUp] giveaway - Fishing-Touch Journal"/>
+    <meta property="og:description" content="Crypto WriteUp - giveaway坏了，给我这非预期一搞，真白给了感谢polar老师的指导，我是真的不会sagemath呜呜呜，我菜死了喵
+首先有个proof_of_work，有手就,"/>
+    
+<link rel="stylesheet" href="/css/diaspora.css">
+
+    <script>window.searchDbPath = "/search.xml";</script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap" rel="stylesheet">
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body class="loading">
+    <span id="config-title" style="display:none">Fishing-Touch Journal</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="https://blog.ltkk.ml"></a>
+    <div title="播放/暂停" class="iconfont icon-play"></div>
+    <h3 class="subtitle">[2023 MiniL WriteUp] giveaway</h3>
+    <div class="social">
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="iconfont icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+
+    <div class="section">
+        <div class="article">
+    <div class='main'>
+        <h1 class="title">[2023 MiniL WriteUp] giveaway</h1>
+        <div class="stuff">
+            <span>五月 07, 2023</span>
+            
+
+        </div>
+        <div class="content markdown">
+            <h1 id="Crypto-WriteUp-giveaway"><a href="#Crypto-WriteUp-giveaway" class="headerlink" title="Crypto WriteUp - giveaway"></a>Crypto WriteUp - giveaway</h1><p><em><strong>坏了，给我这非预期一搞，真白给了</strong></em><br><em><strong>感谢polar老师的指导，我是真的不会sagemath呜呜呜，我菜死了喵</strong></em></p>
+<p>首先有个<code>proof_of_work</code>，有手就行，直接写个小工具爆破即可</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!venv/bin/python</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> itertools <span class="keyword">import</span> product</span><br><span class="line"><span class="keyword">from</span> hashlib <span class="keyword">import</span> sha256</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">main</span>():</span><br><span class="line">    known = (known_[<span class="number">5</span>:] <span class="keyword">if</span> (known_ := <span class="built_in">input</span>(<span class="string">&quot;known part: &quot;</span>))[:<span class="number">5</span>] == <span class="string">&quot;XXXX+&quot;</span> <span class="keyword">else</span> known_)</span><br><span class="line">    sha = <span class="built_in">input</span>(<span class="string">&quot;sha256: &quot;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> a, b, c, d <span class="keyword">in</span> product(<span class="string">&quot;abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789&quot;</span>, repeat=<span class="number">4</span>):</span><br><span class="line">        <span class="keyword">if</span> sha256((a + b + c + d + known).encode()).hexdigest() == sha:</span><br><span class="line">            <span class="built_in">print</span>(a + b + c + d)</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;not found&quot;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
+
+<p>然后进入正题，先贴一些关键的题目代码，代码不是完整的，完整的请看题目的GitHub仓库</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">dec2blist</span>(<span class="params">decimal, length</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    Converts an integer to a binary list of a specified length, filling zeros on the left if necessary.</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    bitlist = []</span><br><span class="line">    <span class="keyword">while</span> decimal &gt; <span class="number">0</span>:</span><br><span class="line">        bit = decimal % <span class="number">2</span></span><br><span class="line">        bitlist.append(bit)</span><br><span class="line">        decimal //= <span class="number">2</span></span><br><span class="line">    bitlist.reverse()</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(bitlist) &lt; length:</span><br><span class="line">        bitlist = [<span class="number">0</span>] * (length - <span class="built_in">len</span>(bitlist)) + bitlist</span><br><span class="line">    <span class="keyword">return</span> bitlist</span><br></pre></td></tr></table></figure>
+<p>这个<code>dec2blist</code>还是好理解的，就是把一个整数转换成一个0和1的列表，如果长度小于给定的长度，在前端补0</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">bake</span>(<span class="params">list1,list2</span>):</span><br><span class="line">    <span class="keyword">return</span> reduce((<span class="keyword">lambda</span> x,y: x ^ y) , <span class="built_in">list</span>(<span class="built_in">map</span>(<span class="keyword">lambda</span> x, y: x <span class="keyword">and</span> y, list1, list2)) )</span><br></pre></td></tr></table></figure>
+<p>这个<code>bake</code>看起来挺短，但是还是得琢磨一下的，表面上看是两个列表逐一做and运算，然后通过一个xor做reduce，我的理解是，假定两个参数是长度相等的列表，且每一个元素的值都是0或者1，则可以把and运算看成<code>list1</code>和<code>list2</code>两个n维向量逐项相乘，得到的每一项也都是0或者1，因此xor运算就可以看做把相乘得到各项相加，然后取mod2。也就是<code>bake</code>是求两个向量的数量积，然后取mod 2，换句话说，是在mod2有限域下的向量乘法</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">send_a_chocolate</span>(<span class="params">self</span>):</span><br><span class="line">    <span class="keyword">assert</span> <span class="built_in">len</span>(<span class="built_in">bin</span>(bytes_to_long(message)))-<span class="number">2</span>==<span class="number">511</span></span><br><span class="line">    dough=bytes_to_long(message)</span><br><span class="line">    chocolate_jam=random.getrandbits(<span class="number">512</span>)</span><br><span class="line">    cookie=bake(dec2blist(dough, <span class="number">512</span>), dec2blist(chocolate_jam,<span class="number">512</span>))</span><br><span class="line">    self.send(<span class="string">f&quot;[+] The lucky sticker reads (<span class="subst">&#123;cookie&#125;</span>,<span class="subst">&#123;<span class="built_in">hex</span>(chocolate_jam)&#125;</span>). Yummy!\n&quot;</span>.encode())</span><br></pre></td></tr></table></figure>
+<p>这个也好理解，就是把flag和一个随机的jam通过bake得到一个result，将result和jam一起返回</p>
+<p>虽然出题人的本意是限制获取不超过508组jam和result的，但是这是静态flag，而且也没加salt（<br>那我多次请求不就好了吗（<del>polar: 草草草草，黑客！</del></p>
+<p>于是我就获得了512组jam和result</p>
+<p>每个jam是一个长512的行向量，构成了一个512x512的系数方阵<em>A</em>，要求的flag构成了未知列向量<em>x</em>，result构成了列向量<em>u</em>，有方程 <em>A * x</em> &#x3D;&#x3D; <em>u</em></p>
+<p>方程放到sage里面，求解就ok了</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> xxx <span class="keyword">import</span> A, x, u <span class="comment"># 这个得自己想办法了，太长了把我worksheet都搞卡了（</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 这是sagemath</span></span><br><span class="line">R = IntegerModRing(<span class="number">2</span>)</span><br><span class="line">A = Matrix(R,A)</span><br><span class="line">v = vector(R,v)</span><br><span class="line">x = A.solve_right(v)</span><br></pre></td></tr></table></figure>
+<p>得到的还是一个0和1的列表，再写个小脚本转换一下</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> long_to_bytes</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(long_to_bytes(<span class="built_in">int</span>(<span class="string">&quot;&quot;</span>.join(<span class="built_in">str</span>(bit) <span class="keyword">for</span> bit <span class="keyword">in</span> x),<span class="number">2</span>)))</span><br></pre></td></tr></table></figure>
+
+<p>done</p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                </ul>
+            
+        </div>
+        
+        
+    <div id="gitalk-container" class="comment link"
+		data-enable="false"
+        data-ae="false"
+        data-ci=""
+        data-cs=""
+        data-r=""
+        data-o=""
+        data-a=""
+        data-d="false"
+    >查看评论</div>
+
+
+    </div>
+    
+</div>
+
+
+    </div>
+</div>
+</body>
+
+
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/typed.js"></script>
+<script src="/js/diaspora.js"></script>
+
+
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+
+
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({"HTML-CSS": { preferredFont: "TeX", availableFonts: ["STIX","TeX"], linebreaks: { automatic:true }, EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50) },
+        tex2jax: { inlineMath: [ ["$", "$"], ["\\(","\\)"] ], processEscapes: true, ignoreClass: "tex2jax_ignore|dno",skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']},
+        TeX: {  noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } }, Macros: { href: "{}" } },
+        messageStyle: "none"
+    });
+</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script async type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+
+</html>
